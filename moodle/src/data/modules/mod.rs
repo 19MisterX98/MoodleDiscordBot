@@ -1,0 +1,14 @@
+pub mod assignment;
+pub mod bigbluebutton;
+pub mod chat;
+pub mod choice;
+pub mod feedback;
+pub mod folder;
+pub mod forum;
+pub mod glossary;
+pub mod label;
+pub mod page;
+pub mod quiz;
+pub mod resource;
+pub mod unknown;
+pub mod url;

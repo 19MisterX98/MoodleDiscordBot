@@ -1,0 +1,19 @@
+[package]
+name = "bot"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+openssl = { version = "0.10", features = ["vendored"] }
+indexmap = {version ="1.9", features = ["serde-1"] }
+rand = "0.8"
+anyhow = "1.0"
+tokio-stream = "0.1"
+serde = {version= "1.0", features = ["derive"]}
+serde_json = "1.0"
+moodle = {path = "../moodle", version = "0.1.0"}
+dotenv = "0.15.0"
+serenity = {version = "0.11", default-features = false, features = ["client", "gateway", "rustls_backend", "model"] }
+tokio = { version = "1.25", features = ["macros", "rt-multi-thread"] }

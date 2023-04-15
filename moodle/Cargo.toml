@@ -1,0 +1,18 @@
+[package]
+name = "moodle"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+openssl = { version = "0.10", features = ["vendored"] }
+indexmap = {version ="1.9", features = ["serde-1"] }
+regex = "1.7"
+async-trait = "0.1"
+anyhow = "1.0"
+serde = {version= "1.0", features = ["derive"]}
+serde_json = "1.0"
+reqwest = { version = "0.11", features = ["json"] } # reqwest with JSON parsing support
+futures = "0.3.26" # for our async / await blocks
+tokio = { version = "1.25", features = ["full"] } # for our async runtime
