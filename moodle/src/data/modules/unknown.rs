@@ -52,8 +52,8 @@ impl Generate for CourseModule {
         unreachable!()
     }
 
-    async fn process(course_modules: Vec<CourseModule>, _: &Moodle, _: i64) -> Vec<GenModule> {
-        course_modules
+    async fn process(course_modules: Vec<CourseModule>, _: &Moodle, _: i64) -> anyhow::Result<Vec<GenModule>> {
+        let res = course_modules
             .into_iter()
             .map(|module| {
                 let mut builder =
@@ -63,7 +63,8 @@ impl Generate for CourseModule {
                     .contents(module.contents);
                 builder.build()
             })
-            .collect()
+            .collect();
+        Ok(res)
     }
 
     fn gen(self, _: &mut GenModuleBuilder, _: CourseModule) -> &mut GenModuleBuilder {

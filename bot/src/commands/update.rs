@@ -10,6 +10,7 @@ pub fn register(command: &mut CreateApplicationCommand) -> &mut CreateApplicatio
     command
         .name("update")
         .description("Scans for updates in all moodle courses linked to this channel")
+        .dm_permission(false)
 }
 
 pub async fn run(ctx: &Context, command: ApplicationCommandInteraction) {

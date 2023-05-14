@@ -151,7 +151,7 @@ fn remove_html(string: &str) -> String {
             open_brackets = max(0, open_brackets);
         }
     }
-    new_str
+    new_str.replace("&nbsp;", " ")
 }
 
 // moodle files often contain the revision number in the url.

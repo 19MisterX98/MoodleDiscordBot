@@ -11,6 +11,7 @@ pub fn register(command: &mut CreateApplicationCommand) -> &mut CreateApplicatio
     command
         .name("logout")
         .description("Returns a list where you can select an account to log out of")
+        .dm_permission(false)
 }
 
 pub async fn run(ctx: &Context, command: ApplicationCommandInteraction) {

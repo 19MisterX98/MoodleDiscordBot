@@ -16,9 +16,9 @@ pub trait Generate: Id + Sized {
         course_modules: Vec<CourseModule>,
         client: &Moodle,
         course_id: i64,
-    ) -> Vec<GenModule> {
-        let mapped_modules = Self::request(client, course_id).await.unwrap_or_default();
-        merge(course_modules, mapped_modules) //think about non 1:1 cases
+    ) -> Result<Vec<GenModule>> {
+        let mapped_modules = Self::request(client, course_id).await?;
+        let res = merge(course_modules, mapped_modules) //think about non 1:1 cases
             .into_iter()
             .map(|(course_module, mapped_module)| {
                 let mut builder = GenModuleBuilder::new(
@@ -30,7 +30,8 @@ pub trait Generate: Id + Sized {
                 mapped_module.gen(&mut builder, course_module);
                 builder.build()
             })
-            .collect()
+            .collect();
+        Ok(res)
     }
 
     fn gen(

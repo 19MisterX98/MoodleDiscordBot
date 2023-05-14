@@ -11,6 +11,7 @@ pub fn register(command: &mut CreateApplicationCommand) -> &mut CreateApplicatio
     command
         .name("course-selection")
         .description("Select/Deselect moodle courses attached to this channel")
+        .dm_permission(false)
 }
 
 pub async fn run(ctx: &Context, command: ApplicationCommandInteraction) {

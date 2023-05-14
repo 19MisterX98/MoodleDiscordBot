@@ -36,7 +36,7 @@ pub async fn get_course_info(client: &Moodle, course_id: i64) -> Result<Vec<GenM
 
     let mut gen_modules = vec![];
     for (typ, module_group) in grouped_modules {
-        gen_modules.extend(match_type(typ.as_str(), module_group, client, course_id).await);
+        gen_modules.extend(match_type(typ.as_str(), module_group, client, course_id).await?);
     }
 
     gen_modules.extend(sections.into_iter().map(|section| section.process()));
@@ -48,7 +48,7 @@ async fn match_type(
     course_modules: Vec<CourseModule>,
     client: &Moodle,
     course_id: i64,
-) -> Vec<GenModule> {
+) -> Result<Vec<GenModule>> {
     match name {
         "assign" => Assignment::process(course_modules, client, course_id).await,
         "bigbluebuttonbn" => Bigbluebuttonbn::process(course_modules, client, course_id).await,

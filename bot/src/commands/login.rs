@@ -14,6 +14,7 @@ pub fn register(command: &mut CreateApplicationCommand) -> &mut CreateApplicatio
     command
         .name("login")
         .description("Login to moodle")
+        .dm_permission(false)
         .create_option(|option| {
             option
                 .name("normal")
