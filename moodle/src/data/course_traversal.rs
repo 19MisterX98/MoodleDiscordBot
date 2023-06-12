@@ -18,11 +18,13 @@ use crate::Moodle;
 use anyhow::Result;
 use std::collections::HashMap;
 
+/// public interface to generate course info
 pub async fn get_course_info(client: &Moodle, course_id: i64) -> Result<Vec<GenModule>> {
     let course = client.get_course_contents(course_id).await?;
     let mut sections = vec![];
     let mut grouped_modules = HashMap::new();
 
+    // fill up sections and grouped_modules with the information of course
     for section in course {
         sections.push(section.section_info);
 
@@ -36,9 +38,11 @@ pub async fn get_course_info(client: &Moodle, course_id: i64) -> Result<Vec<GenM
 
     let mut gen_modules = vec![];
     for (typ, module_group) in grouped_modules {
+        // collect more in depth information that is module group specific, also do serialisation
         gen_modules.extend(match_type(typ.as_str(), module_group, client, course_id).await?);
     }
 
+    // sections only need to be serialized
     gen_modules.extend(sections.into_iter().map(|section| section.process()));
     Ok(gen_modules)
 }

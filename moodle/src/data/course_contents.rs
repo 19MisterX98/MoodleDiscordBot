@@ -8,10 +8,14 @@ use async_trait::async_trait;
 pub trait Id {
     fn get_id(&self) -> i64;
 }
+
+/// Defines how moodle modules should be captured
 #[async_trait]
 pub trait Generate: Id + Sized {
+    /// send a request to fetch all modules of a certain type in a moodle course
     async fn request(client: &Moodle, id: i64) -> Result<Vec<Self>>;
 
+    /// Generate Modules from the corresponding course-module and a more specific request for the exact module type
     async fn process(
         course_modules: Vec<CourseModule>,
         client: &Moodle,
@@ -34,6 +38,7 @@ pub trait Generate: Id + Sized {
         Ok(res)
     }
 
+    /// serialize the module entries
     fn gen(
         self,
         builder: &mut GenModuleBuilder,
@@ -41,6 +46,7 @@ pub trait Generate: Id + Sized {
     ) -> &mut GenModuleBuilder;
 }
 
+/// find all pairs of elements in a and b with the same id
 pub fn merge<A: Id, B: Id>(a: Vec<A>, b: Vec<B>) -> Vec<(A, B)> {
     compare(a, b).common
 }

@@ -22,6 +22,7 @@ impl Id for GenModule {
     }
 }
 
+/// Serialize module entries
 pub struct GenModuleBuilder(GenModule);
 
 impl GenModuleBuilder {
